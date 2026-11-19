@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f3e9">
+  <meta name="description" content="S.E.D. is a small, private place to remember your days. Your journal stays in your browser.">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="stylesheet" href="/src/css/styles.css">
+  <title>Smile Every Day</title>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">✳</span><div><strong>S.E.D.</strong><small>smile every day</small></div></div>
+      <p class="sidebar-caption">A quiet place to land.</p>
+      <nav class="main-nav" aria-label="Main">
+        <button class="nav-link active" data-view="today" aria-current="page"><span aria-hidden="true">☀</span> Today</button>
+        <button class="nav-link" data-view="timeline"><span aria-hidden="true">▤</span> My journal</button>
+        <button class="nav-link" data-view="insights"><span aria-hidden="true">◴</span> Look back</button>
+        <button class="nav-link" data-view="support"><span aria-hidden="true">♡</span> Little comforts</button>
+        <button class="nav-link" data-view="settings"><span aria-hidden="true">⚙</span> Settings</button>
+      </nav>
+      <div class="sidebar-foot"><span class="privacy-dot" aria-hidden="true"></span> Your words stay on this device.<br><small>AI sharing is always your choice.</small></div>
+    </aside>
+
+    <main id="main" class="main-content" tabindex="-1">
+      <header class="mobile-header"><div class="brand"><span class="brand-mark" aria-hidden="true">✳</span><div><strong>S.E.D.</strong><small>smile every day</small></div></div><span class="small-private">PRIVATE BY DEFAULT</span></header>
+      <section id="view-today" class="view active" aria-labelledby="today-title">
+        <div class="page-kicker">YOUR LITTLE CORNER OF THE DAY <span class="kicker-star">✺</span></div>
+        <div class="hero">
+          <div><p id="today-date" class="hero-date"></p><h1 id="today-title">However today feels,<br><em>you're welcome here.</em></h1><p class="hero-lead">You don't have to find the right words. A tap, a sentence, or nothing at all is enough.</p></div>
+          <div class="sun-art" aria-hidden="true"><div class="sun-disc"><span>◡</span></div></div>
+        </div>
+        <div class="section-rule"><span>YOUR CHECK-IN</span><span id="save-indicator" class="muted"></span></div>
+        <div class="checkin-panel">
+          <div class="toggle-row" role="tablist" aria-label="Choose check-in time">
+            <button id="tab-morning" class="time-tab active" role="tab" aria-selected="true" data-session="morning">☼ Morning</button>
+            <button id="tab-evening" class="time-tab" role="tab" aria-selected="false" data-session="evening">☾ Evening</button>
+          </div>
+          <h2 id="checkin-question">What's your first feeling today?</h2>
+          <p class="subtle-line">You can always choose “not sure”. No analysis required.</p>
+          <div class="mood-grid" id="mood-options" role="group" aria-label="Choose a feeling">
+            <button type="button" class="mood-choice" data-mood="rough" aria-pressed="false"><span class="mood-face">☁</span><span>Rough</span></button>
+            <button type="button" class="mood-choice" data-mood="heavy" aria-pressed="false"><span class="mood-face">◕</span><span>Heavy</span></button>
+            <button type="button" class="mood-choice" data-mood="even" aria-pressed="false"><span class="mood-face">•</span><span>Just normal</span></button>
+            <button type="button" class="mood-choice" data-mood="okay" aria-pressed="false"><span class="mood-face">◡</span><span>Okay</span></button>
+            <button type="button" class="mood-choice" data-mood="bright" aria-pressed="false"><span class="mood-face">☀</span><span>Bright</span></button>
+            <button type="button" class="mood-choice" data-mood="unsure" aria-pressed="false"><span class="mood-face">?</span><span>Not sure</span></button>
+          </div>
+          <label class="field-label" for="journal-note" id="journal-label">First thought (optional)</label>
+          <textarea id="journal-note" rows="3" maxlength="1800" placeholder="Anything on your mind? You can leave this empty."></textarea>
+          <details class="optional-details"><summary>Add something more <span>(optional)</span></summary><div class="details-body"><label class="field-label" for="activity-input">Something you did, or something that helped</label><input id="activity-input" maxlength="160" placeholder="e.g. played a game, took a walk"><p class="tiny-note">These words may help you remember what worked for you later.</p></div></details>
+          <div class="actions-line"><button id="save-entry" class="btn primary">Save this moment <span aria-hidden="true">↗</span></button><button id="clear-session" class="btn quiet">Clear check-in</button></div>
+          <p class="tiny-note">No streaks. No missed-day warnings. Come back whenever you like.</p>
+        </div>
+        <div id="review-hint" class="review-hint" hidden></div>
+        <section class="today-bottom" aria-labelledby="gentle-title"><div class="little-icon" aria-hidden="true">✿</div><div><h2 id="gentle-title">A small reminder</h2><p>Your day doesn't need a rating to matter. Your journal is here whenever you need it.</p></div></section>
+      </section>
+
+      <section id="view-timeline" class="view" aria-labelledby="timeline-title" hidden>
+        <div class="page-kicker">THE DAYS, IN YOUR WORDS</div><h1 id="timeline-title">My <em>journal.</em></h1><p class="section-intro">A place for the moments you chose to keep. Search them when you need to remember.</p>
+        <div class="search-row"><label for="journal-search" class="sr-only">Search past entries</label><input id="journal-search" type="search" placeholder="Search your words or activities…"><button id="clear-search" class="btn quiet small">Clear</button></div>
+        <div id="timeline-count" class="section-rule">YOUR ENTRIES</div>
+        <div id="timeline-list" class="timeline-list"></div>
+      </section>
+
+      <section id="view-insights" class="view" aria-labelledby="insights-title" hidden>
+        <div class="page-kicker">NOTICE, NOT JUDGE</div><h1 id="insights-title">A little <em>perspective.</em></h1><p class="section-intro">Your own patterns, only from days you recorded. Missing days don't count as bad days.</p>
+        <div class="period-control" role="group" aria-label="Insight period"><button data-period="day">Day</button><button data-period="week" class="active">Week</button><button data-period="month">Month</button></div>
+        <label class="field-label" for="period-date">Look back from</label><input id="period-date" type="date">
+        <div id="stats-summary" class="stats-grid"></div>
+        <div class="chart-panel"><div class="section-rule">THE MOOD TIMELINE</div><div id="mood-chart" class="mood-chart" role="img" aria-label="Morning and evening mood timeline"></div><p class="tiny-note">Ratings use your choices only. “Not sure” and empty check-ins are never treated as zero.</p></div>
+        <div class="ai-panel"><div class="section-rule"><span>OPTIONAL AI REFLECTION</span><span>YOU DECIDE WHAT TO SHARE</span></div><p>Want another perspective? Preview and edit the selected entries before sending anything to Cloudflare Workers AI. This is not a diagnosis.</p>
+          <label class="inline-check"><input type="checkbox" id="include-notes" checked> Include my written notes and activities</label>
+          <label class="field-label" for="share-preview">Exact JSON to share (editable)</label><textarea id="share-preview" rows="7" spellcheck="false" aria-describedby="share-help"></textarea>
+          <p id="share-help" class="tiny-note">For extra privacy, remove names or details you don't want an AI service to process.</p>
+          <label class="field-label" for="ai-code">Prototype AI access code</label><input id="ai-code" type="password" autocomplete="off" placeholder="Set in Vercel environment variables">
+          <label class="inline-check"><input type="checkbox" id="share-consent"> I understand this JSON will leave my device for AI processing.</label>
+          <div class="actions-line"><button id="run-ai" class="btn primary">Ask Workers AI ↗</button><button id="copy-prompt" class="btn outline">Copy prompt for my AI</button></div>
+          <div id="ai-result" class="ai-result" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="view-support" class="view" aria-labelledby="support-title" hidden>
+        <div class="page-kicker">NO FIXING REQUIRED</div><h1 id="support-title">Little <em>comforts.</em></h1><p class="section-intro">Suggestions, not prescriptions. You know your life better than an app does.</p>
+        <div class="comfort-feature"><div class="little-icon" aria-hidden="true">♡</div><div><h2>What helped before?</h2><p id="past-comfort">Once you've written an activity that helped, it can appear here as a gentle reminder.</p></div></div>
+        <div class="section-rule">A FEW OPTIONAL IDEAS</div><div id="comfort-ideas" class="comfort-ideas"></div>
+        <div class="section-rule">TRUSTED RESOURCES</div>
+        <div class="resource-list"><a href="https://www.healthhub.sg/" target="_blank" rel="noopener noreferrer"><strong>HealthHub Singapore</strong><span>Wellbeing information ↗</span></a><a href="https://www.mindline.sg/" target="_blank" rel="noopener noreferrer"><strong>mindline.sg</strong><span>Self-care and support resources ↗</span></a><a href="https://www.sos.org.sg/" target="_blank" rel="noopener noreferrer"><strong>Samaritans of Singapore</strong><span>Support in emotional crisis ↗</span></a></div>
+        <p class="support-disclaimer">This is a journaling app, not a medical or emergency service. If you or someone else is in immediate danger, contact local emergency services.</p>
+      </section>
+
+      <section id="view-settings" class="view" aria-labelledby="settings-title" hidden>
+        <div class="page-kicker">YOU'RE IN CONTROL</div><h1 id="settings-title">Your space, <em>your rules.</em></h1><p class="section-intro">No account. No journal database. Keep your own backup whenever you want.</p>
+        <section class="settings-block"><h2>How you like to recharge</h2><p>Just a preference for optional activity ideas. Change it anytime.</p><div class="choice-row" role="group" aria-label="Activity preference"><button data-lifestyle="indoor">At home</button><button data-lifestyle="both">Either is fine</button><button data-lifestyle="outdoor">Outside</button></div></section>
+        <section class="settings-block"><h2>Evening reminder</h2><p>A gentle prompt only while S.E.D. is open. This version does not send background push notifications.</p><div class="settings-inline"><label class="inline-check"><input type="checkbox" id="reminder-enabled"> Remind me</label><label for="reminder-time" class="sr-only">Reminder time</label><input type="time" id="reminder-time" value="21:00"><button id="notify-permission" class="btn outline small">Enable browser notifications</button></div></section>
+        <section class="settings-block"><h2>Your data belongs to you</h2><p>Export a portable JSON backup, or import one from another device. Imports can merge or replace entries.</p><div class="actions-line"><button id="export-json" class="btn primary">Export my journal ↓</button><label class="btn outline file-button" for="import-json">Import JSON ↑</label><input type="file" id="import-json" accept="application/json,.json" hidden></div><p class="tiny-note">Browser storage can be cleared by your browser or operating system. Export regularly and keep the file somewhere safe.</p><button id="delete-all" class="danger-link">Delete all local journal data</button></section>
+        <section class="settings-block"><h2>About S.E.D.</h2><p>Smile Every Day is a private-first prototype. It doesn't analyze your emotions without permission. Nothing here should replace support from a person you trust or a qualified professional.</p><button id="install-app" class="btn outline" hidden>Install S.E.D. on this device</button></section>
+      </section>
+      <footer class="footer"><span>S.E.D. ☀ Smile Every Day</span><span>Be here. That's enough.</span></footer>
+    </main>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobile navigation"><button data-view="today" class="active"><span>☀</span>Today</button><button data-view="timeline"><span>▤</span>Journal</button><button data-view="insights"><span>◴</span>Insights</button><button data-view="support"><span>♡</span>Comfort</button><button data-view="settings"><span>⚙</span>Settings</button></nav>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/src/js/app.js"></script>
+</body>
+</html>
